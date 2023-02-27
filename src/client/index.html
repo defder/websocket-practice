@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <script src="/socket.io/socket.io.js"></script>
+  
+  <button onClick="sendMsg()">Send Message to server</button>
+
+  <script>
+    var socket = io();
+    const clientNum = Math.floor(Math.random() * (11));
+    function sendMsg() {
+      socket.emit("message", `MESSAGE FROM CLIENT ${clientNum}`);
+    }
+    socket.on('pingForUpdate', (message) => {
+      console.log(message);
+      socket.emit('updateServer', clientNum);
+    });
+  </script>
+</html>
